@@ -1,8 +1,18 @@
 # Code Quality & Security Workflows
 
-This project uses a set of automated tools to maintain **code quality,
-consistency, and security**.\
-They are integrated into GitHub Actions for continuous inspection.
+This repository provides **guides and GitHub Actions workflows** for improving Python code quality, consistency, and security.  
+It covers **formatting, linting, type checking, security scanning, and multi-language quality analysis**.
+
+---
+
+## 🚀 Tools Covered
+
+- **[Black](BLACK_FORMATTER_GUIDE.md)** → Automatic code formatter for consistent style  
+- **[isort](ISORT_IMPORT_SORTER_GUIDE.md)** → Import sorter with Black compatibility  
+- **[Flake8](LINTING_WORKFLOW_GUIDE.md)** → PEP 8 style checker and linter  
+- **[mypy](MYPY_TYPE_CHECKER_GUIDE.md)** → Static type checker for Python type hints  
+- **[Bandit](BANDIT_SECURITY_GUIDE.md)** → Security analysis for Python code  
+- **[SonarQube](SONARQUBE_WORKFLOW_GUIDE.md)** → Multi-language code quality & security platform  
 
 ------------------------------------------------------------------------
 
