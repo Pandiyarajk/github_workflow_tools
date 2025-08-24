@@ -77,8 +77,8 @@ sonar-scanner -Dsonar.sources=src
 
 # Scan with custom properties
 sonar-scanner \
-  -Dsonar.projectKey=repository_folder \
-  -Dsonar.sources=repository_folder \
+  -Dsonar.projectKey=src \
+  -Dsonar.sources=src \
   -Dsonar.host.url=http://localhost:9000 \
   -Dsonar.login=your-token
 ```
@@ -86,12 +86,12 @@ sonar-scanner \
 ### **Configuration File (sonar-project.properties)**
 ```properties
 # sonar-project.properties
-sonar.projectKey=repository_folder
-sonar.projectName=repository_folder
+sonar.projectKey=src
+sonar.projectName=src
 sonar.projectVersion=1.0.6
 
 # Source code configuration
-sonar.sources=repository_folder
+sonar.sources=src
 sonar.tests=tests
 
 # Python configuration
@@ -135,7 +135,7 @@ jobs:
           
       - name: Run tests with coverage
         run: |
-          pytest --cov=repository_folder --cov-report=xml --cov-report=term
+          pytest --cov=src --cov-report=xml --cov-report=term
           
       - name: SonarQube Scan
         uses: sonarqube-quality-gate-action@master
@@ -144,8 +144,8 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dsonar.projectKey=repository_folder
-            -Dsonar.sources=repository_folder
+            -Dsonar.projectKey=src
+            -Dsonar.sources=src
             -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}
             -Dsonar.python.coverage.reportPaths=coverage.xml
             -Dsonar.python.version=3.11
@@ -177,7 +177,7 @@ jobs:
           
       - name: Run tests with coverage
         run: |
-          pytest --cov=repository_folder --cov-report=xml --cov-report=term --junitxml=test-results.xml
+          pytest --cov=src --cov-report=xml --cov-report=term --junitxml=test-results.xml
           
       - name: Run linting tools
         run: |
@@ -185,8 +185,8 @@ jobs:
           black --check --diff .
           isort --check-only --diff .
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=88
-          mypy repository_folder/ --ignore-missing-imports
-          bandit -r repository_folder/ -f json -o bandit-report.json
+          mypy src/ --ignore-missing-imports
+          bandit -r src/ -f json -o bandit-report.json
           
       - name: SonarQube Analysis
         uses: sonarqube-quality-gate-action@master
@@ -195,8 +195,8 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dsonar.projectKey=repository_folder
-            -Dsonar.sources=repository_folder
+            -Dsonar.projectKey=src
+            -Dsonar.sources=src
             -Dsonar.tests=tests
             -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}
             -Dsonar.python.coverage.reportPaths=coverage.xml
@@ -236,7 +236,7 @@ jobs:
           
       - name: Run tests with coverage
         run: |
-          pytest --cov=repository_folder --cov-report=xml --cov-report=term
+          pytest --cov=src --cov-report=xml --cov-report=term
           
       - name: SonarQube Analysis for Python ${{ matrix.python-version }}
         uses: sonarqube-quality-gate-action@master
@@ -245,8 +245,8 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dsonar.projectKey=repository_folder-py${{ matrix.python-version }}
-            -Dsonar.sources=repository_folder
+            -Dsonar.projectKey=src-py${{ matrix.python-version }}
+            -Dsonar.sources=src
             -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}
             -Dsonar.python.coverage.reportPaths=coverage.xml
             -Dsonar.python.version=${{ matrix.python-version }}
@@ -278,7 +278,7 @@ jobs:
           
       - name: Run tests with coverage
         run: |
-          pytest --cov=repository_folder --cov-report=xml --cov-report=term
+          pytest --cov=src --cov-report=xml --cov-report=term
           
       - name: SonarQube Analysis
         id: sonarqube
@@ -288,8 +288,8 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dsonar.projectKey=repository_folder
-            -Dsonar.sources=repository_folder
+            -Dsonar.projectKey=src
+            -Dsonar.sources=src
             -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}
             -Dsonar.python.coverage.reportPaths=coverage.xml
             -Dsonar.qualitygate.wait=true
@@ -310,12 +310,12 @@ jobs:
 ### **pyproject.toml Configuration**
 ```toml
 [tool.sonarqube]
-project_key = "repository_folder"
-project_name = "repository_folder"
+project_key = "src"
+project_name = "src"
 project_version = "1.0.6"
 
 [tool.sonarqube.sources]
-main = "repository_folder"
+main = "src"
 tests = "tests"
 
 [tool.sonarqube.python]
@@ -335,12 +335,12 @@ timeout = 300
 ### **sonar-project.properties Configuration**
 ```properties
 # sonar-project.properties
-sonar.projectKey=repository_folder
-sonar.projectName=repository_folder
+sonar.projectKey=src
+sonar.projectName=src
 sonar.projectVersion=1.0.6
 
 # Source code configuration
-sonar.sources=repository_folder
+sonar.sources=src
 sonar.tests=tests
 
 # Python configuration
@@ -374,7 +374,7 @@ sonar.scm.provider=git
 
 #### ✅ **Good: Clean, Maintainable Code**
 ```python
-"""repository_folder module for enhanced logging functionality."""
+"""src module for enhanced logging functionality."""
 
 import logging
 import queue
@@ -585,7 +585,7 @@ import threading
 import time
 from unittest.mock import Mock, patch
 
-from repository_folder.handlers import ThreadSafeQueueHandler
+from src.handlers import ThreadSafeQueueHandler
 
 
 class TestThreadSafeQueueHandler:
@@ -705,7 +705,7 @@ jobs:
           
       - name: Run tests with coverage
         run: |
-          pytest --cov=repository_folder --cov-report=xml --cov-report=term
+          pytest --cov=src --cov-report=xml --cov-report=term
           
       - name: SonarQube Analysis with Strict Quality Gate
         id: sonarqube
@@ -715,8 +715,8 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dsonar.projectKey=repository_folder
-            -Dsonar.sources=repository_folder
+            -Dsonar.projectKey=src
+            -Dsonar.sources=src
             -Dsonar.host.url=${{ secrets.SONAR_HOST_URL }}
             -Dsonar.python.coverage.reportPaths=coverage.xml
             -Dsonar.qualitygate.wait=true
@@ -754,13 +754,13 @@ jobs:
 ### **1. Development Workflow**
 ```bash
 # Pre-commit quality check
-sonar-scanner -Dsonar.projectKey=repository_folder -Dsonar.sources=repository_folder
+sonar-scanner -Dsonar.projectKey=src -Dsonar.sources=src
 
 # Local quality analysis
-sonar-scanner -Dsonar.projectKey=repository_folder -Dsonar.sources=repository_folder -Dsonar.host.url=http://localhost:9000
+sonar-scanner -Dsonar.projectKey=src -Dsonar.sources=src -Dsonar.host.url=http://localhost:9000
 
 # Quality gate check
-sonar-scanner -Dsonar.projectKey=repository_folder -Dsonar.qualitygate.wait=true
+sonar-scanner -Dsonar.projectKey=src -Dsonar.qualitygate.wait=true
 ```
 
 ### **2. CI/CD Integration**
@@ -797,16 +797,16 @@ sonar-scanner -Dsonar.projectKey=test -Dsonar.sources=.
 #### **Quality Gate Fails**
 ```bash
 # Check quality gate details
-curl "http://localhost:9000/api/qualitygates/project_status?projectKey=repository_folder"
+curl "http://localhost:9000/api/qualitygates/project_status?projectKey=src"
 
 # Check specific metrics
-curl "http://localhost:9000/api/measures/component?component=repository_folder&metricKeys=coverage,bugs,vulnerabilities"
+curl "http://localhost:9000/api/measures/component?component=src&metricKeys=coverage,bugs,vulnerabilities"
 ```
 
 ### **2. Performance Issues**
 ```bash
 # Limit scan scope
-sonar-scanner -Dsonar.sources=repository_folder -Dsonar.exclusions=**/tests/**
+sonar-scanner -Dsonar.sources=src -Dsonar.exclusions=**/tests/**
 
 # Use incremental analysis
 sonar-scanner -Dsonar.scm.revision=HEAD -Dsonar.scm.provider=git

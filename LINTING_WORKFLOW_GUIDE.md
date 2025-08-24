@@ -69,12 +69,12 @@ jobs:
       - name: Run mypy type checking
         run: |
           echo "Running type checking with mypy..."
-          mypy repository_folder/ --ignore-missing-imports
+          mypy src/ --ignore-missing-imports
           
       - name: Run Bandit security analysis
         run: |
           echo "Running security analysis with Bandit..."
-          bandit -r repository_folder/ -f json -o bandit-report.json || true
+          bandit -r src/ -f json -o bandit-report.json || true
 ```
 
 ### Advanced Linting with Matrix Strategy
@@ -115,9 +115,9 @@ jobs:
           } elseif ("${{ matrix.lint-tool }}" -eq "flake8") {
             flake8 . --count --exit-zero --max-complexity=10 --max-line-length=88 --statistics
           } elseif ("${{ matrix.lint-tool }}" -eq "mypy") {
-            mypy repository_folder/ --ignore-missing-imports
+            mypy src/ --ignore-missing-imports
           } elseif ("${{ matrix.lint-tool }}" -eq "bandit") {
-            bandit -r repository_folder/ -f json -o bandit-report-${{ matrix.python-version }}.json || true
+            bandit -r src/ -f json -o bandit-report-${{ matrix.python-version }}.json || true
           }
 ```
 
@@ -206,7 +206,7 @@ extend-exclude = '''
 profile = "black"
 multi_line_output = 3
 line_length = 88
-known_first_party = ["repository_folder"]
+known_first_party = ["src"]
 known_third_party = ["rich", "configparser", "logging", "threading", "queue"]
 sections = ["FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
 
@@ -240,7 +240,7 @@ exclude = [
 [tool.bandit]
 exclude_dirs = ["tests", "venv", ".git"]
 skips = ["B101", "B601"]
-targets = ["repository_folder"]
+targets = ["src"]
 ```
 
 ### **.flake8 Configuration**
@@ -269,7 +269,7 @@ per-file-ignores =
 profile = black
 multi_line_output = 3
 line_length = 88
-known_first_party = repository_folder
+known_first_party = src
 known_third_party = rich,configparser,logging,threading,queue
 sections = FUTURE,STDLIB,THIRDPARTY,FIRSTPARTY,LOCALFOLDER
 ```
@@ -759,8 +759,8 @@ jobs:
           black --check --diff .
           isort --check-only --diff .
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=88
-          mypy repository_folder/ --ignore-missing-imports
-          bandit -r repository_folder/ -f json -o bandit-report.json
+          mypy src/ --ignore-missing-imports
+          bandit -r src/ -f json -o bandit-report.json
 ```
 
 ## Troubleshooting Common Issues
@@ -793,10 +793,10 @@ exclude = ["tests/", "venv/", ".venv/"]
 ### **4. Performance Issues**
 ```bash
 # Limit scope for faster runs
-black repository_folder/ --check
-isort repository_folder/ --check-only
-flake8 repository_folder/ --count
-mypy repository_folder/ --ignore-missing-imports
+black src/ --check
+isort src/ --check-only
+flake8 src/ --count
+mypy src/ --ignore-missing-imports
 ```
 
 ## Conclusion

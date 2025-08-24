@@ -58,7 +58,7 @@ pip install black==23.12.1
 ### **Command Line Usage**
 ```bash
 # Format a single file
-black repository_folder/main.py
+black src/main.py
 
 # Format entire directory
 black .
@@ -91,7 +91,7 @@ print(formatted_code)
 
 # Format file
 black.format_file_in_place(
-    "repository_folder/main.py",
+    "src/main.py",
     mode=black.FileMode(),
     write_back=black.WriteBack.YES
 )
@@ -638,7 +638,7 @@ target-version = ['py311', 'py312', 'py313']
 profile = "black"
 multi_line_output = 3
 line_length = 88
-known_first_party = ["repository_folder"]
+known_first_party = ["src"]
 known_third_party = ["rich", "configparser", "logging"]
 ```
 
@@ -843,7 +843,7 @@ python -c "import tomllib; tomllib.load(open('pyproject.toml', 'rb'))"
 ### **2. Performance Issues**
 ```bash
 # Limit scope for faster runs
-black repository_folder/ --check
+black src/ --check
 
 # Use specific file patterns
 black --include '\.py$' .

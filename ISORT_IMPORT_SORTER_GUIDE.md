@@ -18,7 +18,7 @@
 ### **Import Organization Rules**
 1. **Standard Library Imports**: Python built-in modules (e.g., `os`, `sys`, `logging`)
 2. **Third-party Imports**: External packages (e.g., `rich`, `pytest`, `numpy`)
-3. **Local/Application Imports**: Your project's modules (e.g., `repository_folder.core`)
+3. **Local/Application Imports**: Your project's modules (e.g., `src.core`)
 
 ### **Sorting Logic**
 - **Alphabetical Order**: Within each group, imports are sorted alphabetically
@@ -54,10 +54,10 @@ isort --help
 ### **Command Line Usage**
 ```bash
 # Sort imports in a single file
-isort repository_folder/main.py
+isort src/main.py
 
 # Sort imports in entire directory
-isort repository_folder/
+isort src/
 
 # Sort imports in entire project
 isort .
@@ -96,7 +96,7 @@ use_parentheses = true
 ensure_newline_before_comments = true
 
 # Import grouping
-known_first_party = ["repository_folder"]
+known_first_party = ["src"]
 known_third_party = ["rich", "pytest", "numpy"]
 sections = ["FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
 
@@ -130,7 +130,7 @@ force_grid_wrap = 0
 use_parentheses = True
 ensure_newline_before_comments = True
 
-known_first_party = repository_folder
+known_first_party = src
 known_third_party = rich,pytest,numpy
 
 sections = FUTURE,STDLIB,THIRDPARTY,FIRSTPARTY,LOCALFOLDER
@@ -154,7 +154,7 @@ force_grid_wrap = 0
 use_parentheses = True
 ensure_newline_before_comments = True
 
-known_first_party = repository_folder
+known_first_party = src
 known_third_party = rich,pytest,numpy
 
 sections = FUTURE,STDLIB,THIRDPARTY,FIRSTPARTY,LOCALFOLDER
@@ -306,7 +306,7 @@ jobs:
 
 #### ✅ **Good: Well-organized Imports**
 ```python
-"""repository_folder module for enhanced logging functionality."""
+"""src module for enhanced logging functionality."""
 
 # Standard library imports
 import logging
@@ -324,21 +324,21 @@ from rich.logging import RichHandler
 from rich.table import Table
 
 # Local imports
-from repository_folder.config import ConfigManager
-from repository_folder.handlers import ThreadSafeQueueHandler
-from repository_folder.utils import setup_logging
+from src.config import ConfigManager
+from src.handlers import ThreadSafeQueueHandler
+from src.utils import setup_logging
 ```
 
 #### ❌ **Poor: Disorganized Imports**
 ```python
 # Mixed import order
-from repository_folder.config import ConfigManager
+from src.config import ConfigManager
 import logging
 from rich.console import Console
 import os
 from typing import Optional
 import threading
-from repository_folder.handlers import ThreadSafeQueueHandler
+from src.handlers import ThreadSafeQueueHandler
 import queue
 from rich.logging import RichHandler
 ```
@@ -392,15 +392,15 @@ from yaml import dump, load as yaml_load
 #### **Local/Application Imports**
 ```python
 # Local imports
-from repository_folder import __version__
-from repository_folder.config import ConfigManager, load_config
-from repository_folder.core import repository_folder, get_logger
-from repository_folder.handlers import (
+from src import __version__
+from src.config import ConfigManager, load_config
+from src.core import src, get_logger
+from src.handlers import (
     FileHandler,
     RichConsoleHandler,
     ThreadSafeQueueHandler,
 )
-from repository_folder.utils import (
+from src.utils import (
     format_message,
     setup_logging,
     validate_config,
@@ -411,7 +411,7 @@ from repository_folder.utils import (
 
 #### **Long Import Lists**
 ```python
-from repository_folder.handlers import (
+from src.handlers import (
     AsyncHandler,
     FileHandler,
     RichConsoleHandler,
@@ -423,7 +423,7 @@ from repository_folder.handlers import (
 
 #### **Complex Import Statements**
 ```python
-from repository_folder.utils import (
+from src.utils import (
     format_message,
     get_log_level,
     parse_config,
@@ -454,9 +454,9 @@ except ImportError:
 #### **Absolute Imports (Recommended)**
 ```python
 # Good: Absolute imports
-from repository_folder.config import ConfigManager
-from repository_folder.handlers import ThreadSafeQueueHandler
-from repository_folder.utils import setup_logging
+from src.config import ConfigManager
+from src.handlers import ThreadSafeQueueHandler
+from src.utils import setup_logging
 
 # Avoid: Relative imports (unless necessary)
 # from .config import ConfigManager
@@ -501,8 +501,8 @@ from typing import TYPE_CHECKING, Any, Optional
 
 if TYPE_CHECKING:
     # Type checking only imports
-    from repository_folder.config import ConfigManager
-    from repository_folder.handlers import ThreadSafeQueueHandler
+    from src.config import ConfigManager
+    from src.handlers import ThreadSafeQueueHandler
 ```
 
 #### **Platform-specific Imports**
@@ -541,7 +541,7 @@ ensure_newline_before_comments = true
 profile = "django"
 line_length = 88
 known_django = "django"
-known_first_party = "repository_folder"
+known_first_party = "src"
 ```
 
 ### **Google Profile**
@@ -555,7 +555,7 @@ force_sort_within_sections = true
 ### **Custom Profile**
 ```toml
 [tool.isort]
-# Custom profile for repository_folder
+# Custom profile for src
 profile = "black"
 line_length = 88
 multi_line_output = 3
@@ -568,7 +568,7 @@ ensure_newline_before_comments = true
 sections = ["FUTURE", "STDLIB", "THIRDPARTY", "FIRSTPARTY", "LOCALFOLDER"]
 
 # Known packages
-known_first_party = ["repository_folder"]
+known_first_party = ["src"]
 known_third_party = ["rich", "pytest", "numpy", "pandas"]
 
 # Skip patterns
@@ -663,10 +663,10 @@ repos:
 ```bash
 # Problem: Imports not in expected order
 # Solution: Check isort configuration
-isort --check-only --diff repository_folder/main.py
+isort --check-only --diff src/main.py
 
 # Fix automatically
-isort repository_folder/main.py
+isort src/main.py
 ```
 
 ### **2. Black Compatibility Issues**
@@ -681,10 +681,10 @@ isort --profile black .
 ### **3. Multi-line Import Formatting**
 ```python
 # Problem: Inconsistent multi-line formatting
-from repository_folder.handlers import FileHandler, RichConsoleHandler, ThreadSafeQueueHandler
+from src.handlers import FileHandler, RichConsoleHandler, ThreadSafeQueueHandler
 
 # Solution: Force grid wrap
-from repository_folder.handlers import (
+from src.handlers import (
     FileHandler,
     RichConsoleHandler,
     ThreadSafeQueueHandler,
@@ -695,11 +695,11 @@ from repository_folder.handlers import (
 ```python
 # Problem: Mixed import styles
 from .config import ConfigManager
-from repository_folder.handlers import ThreadSafeQueueHandler
+from src.handlers import ThreadSafeQueueHandler
 
 # Solution: Consistent absolute imports
-from repository_folder.config import ConfigManager
-from repository_folder.handlers import ThreadSafeQueueHandler
+from src.config import ConfigManager
+from src.handlers import ThreadSafeQueueHandler
 ```
 
 ## Best Practices

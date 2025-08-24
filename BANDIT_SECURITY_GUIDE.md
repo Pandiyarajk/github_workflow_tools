@@ -37,7 +37,7 @@ pip install bandit[toml]  # TOML configuration support
 bandit .
 
 # Scan specific file
-bandit repository_folder/main.py
+bandit src/main.py
 
 # Scan with specific severity levels
 bandit -r . -f json -o bandit-report.json
@@ -170,7 +170,7 @@ jobs:
 [bandit]
 exclude_dirs = tests,venv,.git
 skips = B101,B601
-targets = repository_folder
+targets = src
 
 # Severity levels: LOW, MEDIUM, HIGH
 # Confidence levels: LOW, MEDIUM, HIGH
@@ -181,7 +181,7 @@ targets = repository_folder
 [tool.bandit]
 exclude_dirs = ["tests", "venv", ".git"]
 skips = ["B101", "B601"]
-targets = ["repository_folder"]
+targets = ["src"]
 
 [tool.bandit.assert_used]
 skips = ["*_test.py", "*/test_*.py"]
@@ -498,7 +498,7 @@ subprocess.run(['ls'])  # nosec B607 - This is a trusted command
 ### **Performance Issues**
 ```bash
 # Limit scan scope
-bandit -r repository_folder/ -x "*/tests/*"
+bandit -r src/ -x "*/tests/*"
 
 # Use parallel processing
 bandit -r . -p 4
